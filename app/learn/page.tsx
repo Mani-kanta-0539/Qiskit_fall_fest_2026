@@ -201,7 +201,7 @@ export default function LearnPage() {
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }} variants={stagger}>
             <motion.span variants={fadeUp} className="section-eyebrow">Resource Library</motion.span>
             <motion.h2 variants={fadeUp} className="mt-3 text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
-              16 Curated IBM & Qiskit Resources
+              IBM & Qiskit Resources
             </motion.h2>
             <motion.p variants={fadeUp} className="text-slate-600 text-sm mb-10 max-w-xl">
               From interactive sandboxes and official documentation to structured courses and application modules — explore by your level and interest.
