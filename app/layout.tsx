@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import { ContactModalProvider } from '@/context/ContactModalContext'
 import LumaCheckout from '@/components/LumaCheckout'
 import SparkleTrail from '@/components/SparkleTrail'
+import { Analytics } from '@vercel/analytics/next'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -55,6 +56,7 @@ export default function RootLayout({
         </ContactModalProvider>
         <LumaCheckout />
         <SparkleTrail />
+        <Analytics />
       </body>
     </html>
   )
