@@ -1,60 +1,15 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { fadeUp, stagger } from '@/lib/variants'
 import Link from 'next/link'
 import {
   BookOpen, PlayCircle, ExternalLink,
   Cpu, FlaskConical, GraduationCap, Code2,
-  Brain, Database, ArrowRight, Copy, Check, Terminal
+  Brain, Database, ArrowRight, ShieldCheck, Users
 } from 'lucide-react'
 
-function CodeBlock({ code, title }: { code: string; title?: string }) {
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
-  return (
-    <div className="rounded-2xl border border-pink-200/80 bg-slate-950 text-slate-100 overflow-hidden shadow-md my-3 flex flex-col">
-      {/* Header bar with sticky/top copy button */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900/90 border-b border-slate-800">
-        <div className="flex items-center gap-2">
-          <div className="flex gap-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-          </div>
-          {title && (
-            <span className="font-mono text-xs text-slate-400 font-medium ml-2">{title}</span>
-          )}
-        </div>
-        <button
-          type="button"
-          onClick={handleCopy}
-          aria-label="Copy code to clipboard"
-          className="min-h-[44px] min-w-[44px] flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 transition-all cursor-pointer"
-        >
-          {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
-          <span>{copied ? 'Copied!' : 'Copy'}</span>
-        </button>
-      </div>
-
-      {/* Code container with overflow-x-auto and no-scrollbar */}
-      <div className="overflow-x-auto no-scrollbar p-4 text-xs sm:text-sm font-mono leading-relaxed">
-        <pre className="m-0 whitespace-pre">
-          <code>{code}</code>
-        </pre>
-      </div>
-    </div>
-  )
-}
-
-/* ─── Curated resource library ───────────────────────────── */
+/* ─── Curated IBM & Qiskit resource library ───────────────────────────── */
 const resourceCategories = [
   {
     id: 'start',
@@ -72,7 +27,7 @@ const resourceCategories = [
       },
       {
         title: 'Qiskit Documentation',
-        desc: 'Complete API reference, conceptual explainers, and tutorials for every Qiskit module — always up-to-date with latest releases.',
+        desc: 'Complete API reference, conceptual explainers, and migration guides for Qiskit v1.0+ and IBM Quantum primitives.',
         url: 'https://docs.quantum.ibm.com/',
         icon: BookOpen,
         tag: 'Docs',
@@ -98,56 +53,48 @@ const resourceCategories = [
   },
   {
     id: 'textbooks',
-    label: '02 — Textbooks & Courses',
-    eyebrow: 'Structured Learning',
+    label: '02 — Courses & Textbooks',
+    eyebrow: 'Official Curriculum',
     color: '#f472b6',
     resources: [
       {
         title: 'Qiskit Textbook (Learn Qiskit)',
-        desc: 'The open-source, interactive quantum computing textbook built on Jupyter notebooks. Covers all major QC topics with runnable code.',
-        url: 'https://qiskit.org/learn',
+        desc: 'The official interactive quantum computing textbook built on Qiskit notebooks. Covers foundational quantum computation with runnable code.',
+        url: 'https://learning.quantum.ibm.com/tutorial/explore-gates-and-circuits-with-the-quantum-composer',
         icon: BookOpen,
         tag: 'Textbook',
         tagColor: 'purple' as const,
       },
       {
-        title: 'Nielsen & Chuang: QCQI',
-        desc: '"Quantum Computation and Quantum Information" — the definitive graduate-level textbook. Essential reading for deep theory understanding.',
-        url: 'https://www.cambridge.org/highereducation/books/quantum-computation-and-quantum-information/01E10196D0A682A6AEFFEA52D53BE9AE',
-        icon: BookOpen,
-        tag: 'Book',
+        title: 'Fundamentals of Quantum Info',
+        desc: 'Comprehensive course series by Dr. John Watrous on IBM Quantum Learning, covering quantum states, operators, and teleportation.',
+        url: 'https://learning.quantum.ibm.com/course/fundamentals-of-quantum-information',
+        icon: GraduationCap,
+        tag: 'IBM Course',
         tagColor: 'purple' as const,
       },
       {
-        title: 'Stanford CS269Q Lecture Notes',
-        desc: "William Zeng's Stanford quantum computing course notes — rigorous treatment of quantum algorithms, error correction, and hardware.",
-        url: 'https://cs269q.stanford.edu/',
-        icon: GraduationCap,
-        tag: 'University',
-        tagColor: 'cyan' as const,
-      },
-      {
-        title: 'MIT OpenCourseWare — Quantum Physics',
-        desc: 'MIT 8.04 & 8.05 quantum mechanics lectures and problem sets — ideal for physics foundation before diving into QC.',
-        url: 'https://ocw.mit.edu/courses/8-04-quantum-physics-i-spring-2016/',
-        icon: GraduationCap,
-        tag: 'University',
-        tagColor: 'cyan' as const,
-      },
-      {
-        title: 'Brilliant.org Quantum Computing',
-        desc: 'Interactive problem-based quantum computing course — visual, intuitive, and great for cementing intuition without heavy math first.',
-        url: 'https://brilliant.org/courses/quantum-computing/',
+        title: 'Variational Algorithm Design',
+        desc: 'Official IBM course exploring VQE, QAOA, ansatz circuits, and gradient estimation on quantum processors using Qiskit Runtime.',
+        url: 'https://learning.quantum.ibm.com/course/variational-algorithm-design',
         icon: Brain,
-        tag: 'Interactive',
+        tag: 'Algorithms',
+        tagColor: 'cyan' as const,
+      },
+      {
+        title: 'Quantum-Safe Cryptography',
+        desc: 'IBM Quantum official course introducing lattice-based cryptography, ML-KEM, ML-DSA, and post-quantum cybersecurity migration.',
+        url: 'https://learning.quantum.ibm.com/course/practical-introduction-to-quantum-safe-cryptography',
+        icon: ShieldCheck,
+        tag: 'Security',
         tagColor: 'cyan' as const,
       },
     ],
   },
   {
     id: 'qml',
-    label: '03 — Quantum Machine Learning',
-    eyebrow: 'QML & Advanced Topics',
+    label: '03 — Quantum Applications & ML',
+    eyebrow: 'Qiskit Application Modules',
     color: '#ff2a85',
     resources: [
       {
@@ -159,52 +106,68 @@ const resourceCategories = [
         tagColor: 'purple' as const,
       },
       {
-        title: 'PennyLane QML',
-        desc: 'Xanadu\'s framework for differentiable quantum programming — excellent tutorials, demos, and a vibrant community. Works with Qiskit backend.',
-        url: 'https://pennylane.ai/qml/',
+        title: 'Qiskit Machine Learning Library',
+        desc: 'Official Qiskit application package for quantum neural networks, variational classifiers, and quantum kernel methods.',
+        url: 'https://github.com/qiskit-community/qiskit-machine-learning',
+        icon: Code2,
+        tag: 'Open Source',
+        tagColor: 'purple' as const,
+      },
+      {
+        title: 'Qiskit Optimization & QAOA',
+        desc: 'Solve Quadratic Programs, QUBO, and combinatorial optimization problems using QAOA, VQE, and Grover optimizer on IBM Quantum.',
+        url: 'https://qiskit-community.github.io/qiskit-optimization/',
         icon: FlaskConical,
-        tag: 'Framework',
+        tag: 'Optimization',
         tagColor: 'cyan' as const,
       },
       {
-        title: 'Quantum Katas (Microsoft)',
-        desc: 'Self-paced coding katas for quantum computing using Q# — great for algorithm practice and deepening understanding through exercises.',
-        url: 'https://quantum.microsoft.com/tools/quantum-katas',
+        title: 'Qiskit Algorithms Library',
+        desc: 'Core algorithm suite including modern VQE, QAOA, Amplitude Estimation, and Time Evolution built on IBM Quantum primitives.',
+        url: 'https://github.com/qiskit-community/qiskit-algorithms',
         icon: Code2,
-        tag: 'Practice',
+        tag: 'Algorithms',
         tagColor: 'cyan' as const,
       },
     ],
   },
   {
     id: 'tools',
-    label: '04 — Tools & Sandboxes',
-    eyebrow: 'Hands-On Practice',
+    label: '04 — Hardware & Platform',
+    eyebrow: 'IBM Quantum Infrastructure',
     color: '#f43f5e',
     resources: [
       {
-        title: 'IBM Quantum Experience',
-        desc: 'Free access to real IBM quantum processors — run experiments on actual superconducting qubits from your browser. Up to 127 qubits.',
+        title: 'IBM Quantum Platform',
+        desc: 'Cloud access to real utility-scale IBM quantum processors — execute circuits on superconducting qubit hardware from your browser.',
         url: 'https://quantum.ibm.com/',
         icon: Cpu,
         tag: 'Hardware',
         tagColor: 'purple' as const,
       },
       {
+        title: 'IBM Quantum Runtime',
+        desc: 'Next-generation execution architecture optimizing containerized quantum-classical loops via Sampler and Estimator primitives.',
+        url: 'https://docs.quantum.ibm.com/guides/runtime',
+        icon: Database,
+        tag: 'Runtime',
+        tagColor: 'purple' as const,
+      },
+      {
         title: 'Qiskit GitHub Repository',
-        desc: 'Open-source Qiskit codebase — browse examples, contribute, read source code, and explore the latest SDK features and extensions.',
+        desc: 'The central open-source Qiskit SDK codebase — browse source code, contribute pull requests, and track core releases.',
         url: 'https://github.com/Qiskit/qiskit',
         icon: Code2,
-        tag: 'Open Source',
+        tag: 'SDK',
         tagColor: 'cyan' as const,
       },
       {
-        title: 'arXiv Quantum Physics (quant-ph)',
-        desc: 'Latest quantum computing research preprints — the primary repository for cutting-edge QC papers before formal publication.',
-        url: 'https://arxiv.org/list/quant-ph/recent',
-        icon: Database,
-        tag: 'Research',
-        tagColor: 'purple' as const,
+        title: 'Qiskit Slack Community',
+        desc: 'Join 30,000+ researchers, developers, and students worldwide in the official Qiskit Slack workspace for support and collaboration.',
+        url: 'https://qisk.it/join-slack',
+        icon: Users,
+        tag: 'Community',
+        tagColor: 'cyan' as const,
       },
     ],
   },
@@ -226,53 +189,8 @@ export default function LearnPage() {
               <span className="gradient-text-neon">From Zero to Hero.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="mt-4 text-slate-600 text-base sm:text-lg max-w-2xl leading-relaxed">
-              Everything you need to go from &ldquo;What is a qubit?&rdquo; to developing quantum algorithms. Hand-picked resources from IBM Quantum, MIT, Stanford, and the global quantum open-source community.
+              Everything you need to go from &ldquo;What is a qubit?&rdquo; to developing quantum algorithms with Qiskit. Hand-picked resources from IBM Quantum and the global Qiskit open-source community.
             </motion.p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── PREREQUISITES & CODE SETUP ───────────────────────── */}
-      <section className="relative z-10 py-10 md:py-14 px-4 sm:px-6 lg:px-8 border-y border-pink-100/80 bg-white/40">
-        <div className="max-w-7xl mx-auto">
-          <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={stagger}>
-            <motion.span variants={fadeUp} className="section-eyebrow">Prerequisites & Setup</motion.span>
-            <motion.h2 variants={fadeUp} className="mt-2 text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
-              Environment Setup & Starter Circuit
-            </motion.h2>
-            <motion.p variants={fadeUp} className="text-slate-600 text-sm max-w-2xl mb-6">
-              Install the official IBM Qiskit SDK on your machine. Test your environment in under two minutes with the Bell state quantum circuit below.
-            </motion.p>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-              <motion.div variants={fadeUp} className="flex flex-col">
-                <span className="text-xs font-mono font-semibold text-[#db2777] uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                  <Terminal size={14} />
-                  <span>1. Command Line Installation</span>
-                </span>
-                <CodeBlock
-                  title="Terminal (bash / zsh / cmd)"
-                  code={`# Recommended Python 3.10+\npip install qiskit qiskit-ibm-runtime matplotlib pylatexenc`}
-                />
-                <p className="text-xs text-slate-500 mt-1">
-                  Works on Windows, macOS, and Linux laptops. Free access to IBM cloud simulators is included.
-                </p>
-              </motion.div>
-
-              <motion.div variants={fadeUp} className="flex flex-col">
-                <span className="text-xs font-mono font-semibold text-pink-600 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                  <Code2 size={14} />
-                  <span>2. 2-Qubit Bell State Verification</span>
-                </span>
-                <CodeBlock
-                  title="bell_state.py"
-                  code={`from qiskit import QuantumCircuit\nfrom qiskit.primitives import StatevectorSampler\n\n# Create a 2-qubit entangled Bell State\nqc = QuantumCircuit(2)\nqc.h(0)\nqc.cx(0, 1)\nqc.measure_all()\n\n# Run on local statevector simulator\nsampler = StatevectorSampler()\njob = sampler.run([qc], shots=1024)\nresult = job.result()[0].data.meas.get_counts()\nprint("Bell State Counts:", result)`}
-                />
-                <p className="text-xs text-slate-500 mt-1">
-                  Expected output will show roughly equal distribution between <code className="text-pink-600 font-mono">00</code> and <code className="text-pink-600 font-mono">11</code> states.
-                </p>
-              </motion.div>
-            </div>
           </motion.div>
         </div>
       </section>
@@ -283,10 +201,10 @@ export default function LearnPage() {
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }} variants={stagger}>
             <motion.span variants={fadeUp} className="section-eyebrow">Resource Library</motion.span>
             <motion.h2 variants={fadeUp} className="mt-3 text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
-              15 Curated Quantum Resources
+              16 Curated IBM & Qiskit Resources
             </motion.h2>
             <motion.p variants={fadeUp} className="text-slate-600 text-sm mb-10 max-w-xl">
-              From interactive sandboxes to full textbooks and cutting-edge papers — explore by your level and interest.
+              From interactive sandboxes and official documentation to structured courses and application modules — explore by your level and interest.
             </motion.p>
 
             {resourceCategories.map((cat) => (

@@ -260,7 +260,7 @@ export const speakersData: Speaker[] = [
   },
   {
     id: 'm3', name: 'Priya Menon', role: 'ML Engineer', category: 'mentor',
-    affiliation: 'AI Research Lab', topics: ['Quantum Machine Learning', 'Pennylane'],
+    affiliation: 'AI Research Lab', topics: ['Quantum Machine Learning', 'Qiskit ML'],
     linkedIn: '#',
   },
   {
@@ -301,7 +301,7 @@ export const tracksData: Track[] = [
     title: 'Quantum Machine Learning (QML)',
     description: 'Leverage parameterized quantum circuits as hybrid machine learning models to classify, cluster, or generate data.',
     problemBrief: 'Train a Quantum Neural Network or Variational Quantum Classifier on a real dataset and compare its performance against a classical baseline. Explain the quantum advantage (or lack thereof).',
-    tools: ['Qiskit Machine Learning', 'PennyLane', 'PyTorch', 'IBM Quantum Runtime'],
+    tools: ['Qiskit Machine Learning', 'Qiskit Primitives', 'PyTorch', 'IBM Quantum Runtime'],
     difficulty: 'Advanced',
   },
   {
