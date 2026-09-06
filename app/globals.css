@@ -1,0 +1,413 @@
+@import "tailwindcss";
+
+/* ─── Tailwind v4 Theme Tokens (Light Mode - Pink Aesthetic) ── */
+@theme {
+  --color-space-black: #ffffff;
+  --color-space-dark: #fff5f7;
+  --color-space-card: #ffffff;
+  --color-quantum-pink: #ec4899;
+  --color-quantum-pink-light: #db2777;
+  --color-quantum-pink-neon: #be185d;
+  --color-quantum-rose: #e11d48;
+  --color-quantum-pink-muted: #fce7f3;
+  --color-text-primary: #0f172a;
+  --color-text-muted: #64748b;
+
+  /* Aliases for backwards compatibility */
+  --color-quantum-purple: #ec4899;
+  --color-quantum-purple-light: #db2777;
+  --color-quantum-cyan: #db2777;
+  --color-quantum-indigo: #be185d;
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), 'Fira Code', monospace;
+
+  --animate-pulse-glow: pulseGlow 3s ease-in-out infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-ticker: ticker 35s linear infinite;
+  --animate-fade-in-up: fadeInUp 0.7s ease-out forwards;
+  --animate-shimmer: shimmer 3s linear infinite;
+  --animate-border-glow: borderGlow 3s ease-in-out infinite;
+
+  @keyframes pulseGlow {
+    0%,100% { box-shadow: 0 4px 20px rgba(236,72,153,.25); }
+    50%      { box-shadow: 0 8px 35px rgba(236,72,153,.45), 0 0 50px rgba(244,114,182,.2); }
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0px) rotate(0deg); }
+    33%     { transform: translateY(-10px) rotate(1deg); }
+    66%     { transform: translateY(-6px) rotate(-1deg); }
+  }
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(30px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+  @keyframes borderGlow {
+    0%,100% { border-color: rgba(244,114,182,.3); }
+    50%     { border-color: rgba(236,72,153,.6); }
+  }
+}
+
+/* ─── CSS Custom Properties ──────────────────────────────── */
+:root {
+  --quantum-pink:       #ec4899;
+  --quantum-pink-light: #db2777;
+  --quantum-pink-neon:  #be185d;
+  --quantum-rose:       #e11d48;
+  --quantum-pink-muted: #fce7f3;
+
+  /* Aliases */
+  --quantum-purple: #ec4899;
+  --quantum-cyan:   #db2777;
+  --quantum-indigo: #be185d;
+
+  --space-black:    #ffffff;
+  --space-dark:     #fff5f7;
+  --space-card:     #ffffff;
+  --text-primary:   #0f172a;
+  --text-muted:     #64748b;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6.5rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: #fff8fa;
+  color: #0f172a;
+  font-family: var(--font-geist-sans, system-ui, sans-serif);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::selection { background: rgba(244, 114, 182, 0.35); color: #831843; }
+
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: #fff5f7; }
+::-webkit-scrollbar-thumb { background: rgba(236, 72, 153, 0.35); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(236, 72, 153, 0.65); }
+
+/* ─── Glass Card (Light Mode - Pink Edition) ─────────────── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(244, 114, 182, 0.22);
+  border-radius: 18px;
+  box-shadow:
+    0 10px 30px -5px rgba(244, 114, 182, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pink Shimmer on hover */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 40%,
+    rgba(244, 114, 182, 0.1) 50%,
+    transparent 60%
+  );
+  background-size: 200% 200%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glass-card:hover::before { opacity: 1; }
+
+.glass-card:hover {
+  border-color: rgba(236, 72, 153, 0.5);
+  box-shadow:
+    0 15px 35px -5px rgba(236, 72, 153, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-3px);
+}
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn-glow {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.35);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f472b6 0%, #be185d 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-glow:hover::after  { opacity: 1; }
+.btn-glow:hover {
+  box-shadow: 0 8px 30px rgba(236, 72, 153, 0.55);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-glow span, .btn-glow svg { position: relative; z-index: 1; }
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(244, 114, 182, 0.38);
+  backdrop-filter: blur(12px);
+  color: #be185d;
+  box-shadow: 0 2px 10px rgba(244, 114, 182, 0.1);
+  transition: all 0.3s ease;
+}
+.btn-glass:hover {
+  background: #fdf2f8;
+  border-color: #ec4899;
+  color: #831843;
+  box-shadow: 0 4px 16px rgba(244, 114, 182, 0.25);
+  transform: translateY(-1px);
+}
+
+/* ─── Neon Border Card variant ───────────────────────────── */
+.neon-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(244, 114, 182, 0.25);
+  border-radius: 18px;
+  background-clip: padding-box;
+  box-shadow: 0 8px 30px rgba(244, 114, 182, 0.15);
+  transition: all 0.35s ease;
+}
+.neon-card:hover {
+  box-shadow:
+    0 12px 40px rgba(236, 72, 153, 0.25),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+  border-color: rgba(236, 72, 153, 0.5);
+}
+
+/* ─── Quantum Background ─────────────────────────────────── */
+.quantum-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Subtle light pink grid overlay */
+.quantum-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(236, 72, 153, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(236, 72, 153, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ─── Section eyebrow ────────────────────────────────────── */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-geist-mono, monospace);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: #db2777;
+}
+.section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #db2777);
+}
+.section-eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ec4899;
+  box-shadow: 0 0 8px rgba(236, 72, 153, 0.6);
+}
+
+/* ─── Gradient text (Light Mode: High Contrast) ──────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #0f172a 0%, #be185d 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-purple, .gradient-text-pink {
+  background: linear-gradient(90deg, #be185d, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.gradient-text-cyan, .gradient-text-neon {
+  background: linear-gradient(90deg, #be185d, #db2777);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Shimmer gradient text (Light Mode: Vibrant Pink) ───── */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #9d174d 0%,
+    #db2777 25%,
+    #ec4899 50%,
+    #db2777 75%,
+    #9d174d 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ─── Glow divider ───────────────────────────────────────── */
+.glow-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(236, 72, 153, 0.35),
+    rgba(219, 39, 119, 0.25),
+    transparent
+  );
+}
+
+/* ─── Ticker ─────────────────────────────────────────────── */
+.ticker-wrapper { overflow: hidden; white-space: nowrap; }
+.ticker-content { display: inline-flex; animation: ticker 35s linear infinite; }
+
+/* ─── Float animation ────────────────────────────────────── */
+.animate-float { animation: float 7s ease-in-out infinite; }
+
+/* ─── Section spacing ────────────────────────────────────── */
+.section { padding: 100px 0; position: relative; }
+@media (max-width:768px) { .section { padding: 64px 0; } }
+
+/* ─── Radial hero glow (Soft Blush) ──────────────────────── */
+.hero-glow {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+/* ─── Focus ──────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #ec4899;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Stat number glow ───────────────────────────────────── */
+.stat-number {
+  background: linear-gradient(135deg, #0f172a, #db2777);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 8px rgba(244, 114, 182, 0.35));
+}
+
+/* ─── Tag/Badge (Light Pink Theme) ───────────────────────── */
+.tag-purple, .tag-pink {
+  background: #fdf2f8;
+  border: 1px solid #fbcfe8;
+  color: #be185d;
+  font-family: var(--font-geist-mono, monospace);
+  font-size: .65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  padding: .25rem .6rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(244, 114, 182, 0.12);
+}
+.tag-cyan, .tag-rose {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #e11d48;
+  font-family: var(--font-geist-mono, monospace);
+  font-size: .65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  padding: .25rem .6rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(244, 63, 94, 0.12);
+}
+
+/* ─── FAQ Accordion (Native <details> for 100% Guaranteed Expand/Collapse) ── */
+details.faq-item {
+  transition: all 0.2s ease-in-out;
+}
+details.faq-item[open] {
+  border-color: #f472b6 !important;
+  box-shadow: 0 4px 20px -2px rgba(244, 114, 182, 0.25) !important;
+  background-color: #ffffff !important;
+}
+details.faq-item summary {
+  list-style: none !important;
+  outline: none;
+}
+details.faq-item summary::-webkit-details-marker {
+  display: none !important;
+}
+details.faq-item summary::marker {
+  display: none !important;
+}
+details.faq-item[open] summary .faq-icon-plus {
+  display: none !important;
+}
+details.faq-item:not([open]) summary .faq-icon-minus {
+  display: none !important;
+}
+details.faq-item[open] summary .faq-icon-badge {
+  background-color: #ec4899 !important;
+  color: #ffffff !important;
+  transform: scale(1.05);
+}
+details.faq-item summary:hover .faq-icon-badge {
+  background-color: #fbcfe8;
+}
+details.faq-item[open] summary:hover .faq-icon-badge {
+  background-color: #db2777 !important;
+}
+
+/* ─── Scrollbar Utility for Touch / Mobile ───────────────── */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
