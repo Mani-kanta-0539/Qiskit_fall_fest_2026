@@ -9,12 +9,12 @@ interface ScheduleCardProps {
 }
 
 const typeColors: Record<ScheduleItem['type'], string> = {
-  keynote: 'text-pink-800 bg-pink-50 border-pink-200 font-semibold',
-  workshop: 'text-pink-800 bg-pink-50 border-pink-200 font-semibold',
-  hackathon: 'text-rose-800 bg-rose-50 border-rose-200 font-semibold',
-  ceremony: 'text-amber-800 bg-amber-50 border-amber-200 font-semibold',
-  break: 'text-slate-500 bg-slate-100 border-slate-200',
-  panel: 'text-pink-800 bg-pink-50 border-pink-200 font-semibold',
+  keynote: 'text-pink-800 dark:text-pink-300 bg-pink-50 dark:bg-pink-950/60 border-pink-200 dark:border-pink-800/60 font-semibold',
+  workshop: 'text-pink-800 dark:text-pink-300 bg-pink-50 dark:bg-pink-950/60 border-pink-200 dark:border-pink-800/60 font-semibold',
+  hackathon: 'text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 border-rose-200 dark:border-rose-800/60 font-semibold',
+  ceremony: 'text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border-amber-200 dark:border-amber-800/60 font-semibold',
+  break: 'text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700',
+  panel: 'text-pink-800 dark:text-pink-300 bg-pink-50 dark:bg-pink-950/60 border-pink-200 dark:border-pink-800/60 font-semibold',
 }
 
 function generateICS(item: ScheduleItem): string {
@@ -53,17 +53,17 @@ export default function ScheduleCard({ item }: ScheduleCardProps) {
   if (item.type === 'break') {
     return (
       <div className="flex items-center gap-4 px-4 py-2 opacity-60">
-        <span className="font-mono text-xs text-slate-500 w-32 flex-shrink-0">{item.time}</span>
-        <span className="text-xs text-slate-500">— {item.title} —</span>
+        <span className="font-mono text-xs text-slate-500 dark:text-slate-400 w-32 flex-shrink-0">{item.time}</span>
+        <span className="text-xs text-slate-500 dark:text-slate-400">— {item.title} —</span>
       </div>
     )
   }
 
   return (
-    <div className="glass-card bg-white/90 border-pink-200/80 p-4 sm:p-5 flex flex-col sm:flex-row gap-4 shadow-sm hover:shadow-md">
+    <div className="glass-card bg-white/90 dark:bg-slate-900/85 border-pink-200/80 dark:border-pink-900/40 p-4 sm:p-5 flex flex-col sm:flex-row gap-4 shadow-sm hover:shadow-md">
       {/* Time */}
       <div className="flex-shrink-0 w-full sm:w-32">
-        <span className="font-mono text-xs text-pink-800 bg-pink-100/90 border border-pink-300 rounded-md px-2.5 py-1 inline-block font-semibold">
+        <span className="font-mono text-xs text-pink-800 dark:text-pink-300 bg-pink-100/90 dark:bg-pink-950/80 border border-pink-300 dark:border-pink-800 rounded-md px-2.5 py-1 inline-block font-semibold">
           {item.time}
         </span>
       </div>
@@ -74,15 +74,15 @@ export default function ScheduleCard({ item }: ScheduleCardProps) {
           <span className={`font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded border ${typeColors[item.type]}`}>
             {item.type}
           </span>
-          {item.track && (
-            <span className="font-mono text-[10px] text-slate-600 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded uppercase tracking-wider font-medium">
+          {item.track && item.track.toLowerCase() !== item.type.toLowerCase() && (
+            <span className="font-mono text-[10px] text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-2 py-0.5 rounded uppercase tracking-wider font-medium">
               {item.track}
             </span>
           )}
         </div>
-        <h4 className="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-1">{item.title}</h4>
+        <h4 className="font-bold text-slate-900 dark:text-white text-sm sm:text-base leading-snug mb-1">{item.title}</h4>
         {item.speaker && (
-          <p className="text-xs text-slate-600 font-medium">by {item.speaker}</p>
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">by {item.speaker}</p>
         )}
       </div>
 
@@ -91,9 +91,9 @@ export default function ScheduleCard({ item }: ScheduleCardProps) {
         <button
           onClick={downloadICS}
           title="Add to Calendar"
-          className="min-h-[44px] flex items-center justify-center gap-2 px-3.5 py-2 sm:py-1.5 rounded-lg text-xs font-medium text-slate-700 hover:text-slate-900 bg-white hover:bg-pink-50 border border-pink-200 transition-all duration-200 shadow-2xs cursor-pointer w-full sm:w-auto"
+          className="min-h-[44px] flex items-center justify-center gap-2 px-3.5 py-2 sm:py-1.5 rounded-lg text-xs font-medium text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-white dark:bg-slate-800 hover:bg-pink-50 dark:hover:bg-slate-700 border border-pink-200 dark:border-pink-800/80 transition-all duration-200 shadow-2xs cursor-pointer w-full sm:w-auto"
         >
-          {copied ? <Check size={14} className="text-emerald-600" /> : <Calendar size={14} />}
+          {copied ? <Check size={14} className="text-emerald-600 dark:text-emerald-400" /> : <Calendar size={14} />}
           <span className="sm:hidden">{copied ? 'Added to Calendar!' : 'Add to Calendar'}</span>
           <span className="hidden sm:inline">{copied ? 'Added!' : '.ics'}</span>
         </button>
@@ -102,7 +102,7 @@ export default function ScheduleCard({ item }: ScheduleCardProps) {
             href={item.streamUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-h-[44px] flex items-center justify-center gap-2 px-3.5 py-2 sm:py-1.5 rounded-lg text-xs font-medium text-pink-700 hover:text-pink-900 bg-pink-50 hover:bg-pink-100 border border-pink-300 transition-all duration-200 shadow-2xs cursor-pointer w-full sm:w-auto"
+            className="min-h-[44px] flex items-center justify-center gap-2 px-3.5 py-2 sm:py-1.5 rounded-lg text-xs font-medium text-pink-700 dark:text-pink-300 hover:text-pink-900 dark:hover:text-pink-100 bg-pink-50 dark:bg-pink-950/60 hover:bg-pink-100 dark:hover:bg-pink-900/60 border border-pink-300 dark:border-pink-800 transition-all duration-200 shadow-2xs cursor-pointer w-full sm:w-auto"
           >
             <Play size={14} />
             <span className="sm:hidden">Watch Stream</span>

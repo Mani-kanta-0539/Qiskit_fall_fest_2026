@@ -6,7 +6,7 @@ import Link from 'next/link'
 import {
   BookOpen, PlayCircle, ExternalLink,
   Cpu, FlaskConical, GraduationCap, Code2,
-  Brain, Database, ArrowRight, ShieldCheck, Users
+  Brain, ArrowRight, ShieldCheck, FolderDown
 } from 'lucide-react'
 
 /* ─── Curated IBM & Qiskit resource library ───────────────────────────── */
@@ -17,6 +17,14 @@ const resourceCategories = [
     eyebrow: 'For Absolute Beginners',
     color: '#ec4899',
     resources: [
+      {
+        title: 'Official Hackathon Problem Statements & Starter Kit',
+        desc: 'Official prompt PDFs and starter resources for all 8 hackathon tracks hosted on Google Drive.',
+        url: 'https://drive.google.com/drive/folders/1fDArPVLnw7HBNlvgqfTxnaP4hPaem_WB?usp=sharing',
+        icon: FolderDown,
+        tag: 'Official Drive',
+        tagColor: 'purple' as const,
+      },
       {
         title: 'IBM Quantum Learning',
         desc: 'Official structured learning platform from IBM — courses from zero to advanced, completely free. The single best starting point.',
@@ -148,24 +156,24 @@ const resourceCategories = [
       {
         title: 'IBM Quantum Runtime',
         desc: 'Next-generation execution architecture optimizing containerized quantum-classical loops via Sampler and Estimator primitives.',
-        url: 'https://docs.quantum.ibm.com/guides/runtime',
-        icon: Database,
-        tag: 'Runtime',
-        tagColor: 'purple' as const,
-      },
-      {
-        title: 'Qiskit GitHub Repository',
-        desc: 'The central open-source Qiskit SDK codebase — browse source code, contribute pull requests, and track core releases.',
-        url: 'https://github.com/Qiskit/qiskit',
+        url: 'https://docs.quantum.ibm.com/guides/run-jobs',
         icon: Code2,
-        tag: 'SDK',
+        tag: 'Runtime',
         tagColor: 'cyan' as const,
       },
       {
-        title: 'Qiskit Slack Community',
-        desc: 'Join 30,000+ researchers, developers, and students worldwide in the official Qiskit Slack workspace for support and collaboration.',
-        url: 'https://qisk.it/join-slack',
-        icon: Users,
+        title: 'IBM Quantum Systems Roadmap',
+        desc: 'Follow the evolution of quantum processors: Heron, Flamingo, and Cross-resonance architectures pushing toward fault tolerance.',
+        url: 'https://www.ibm.com/quantum/roadmap',
+        icon: Cpu,
+        tag: 'Roadmap',
+        tagColor: 'purple' as const,
+      },
+      {
+        title: 'Qiskit GitHub Community',
+        desc: 'Join 500,000+ quantum developers worldwide. Contribute to open-source Qiskit packages, submit issues, and participate in RFCs.',
+        url: 'https://github.com/Qiskit',
+        icon: Code2,
         tag: 'Community',
         tagColor: 'cyan' as const,
       },
@@ -175,7 +183,7 @@ const resourceCategories = [
 
 export default function LearnPage() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden w-full">
+    <div className="relative min-h-screen overflow-x-hidden w-full bg-white dark:bg-[#09090f] transition-colors duration-250">
       <div className="quantum-bg" aria-hidden="true" />
 
       {/* Page hero */}
@@ -183,12 +191,12 @@ export default function LearnPage() {
         <div className="max-w-7xl mx-auto">
           <motion.div initial="hidden" animate="show" variants={stagger}>
             <motion.span variants={fadeUp} className="section-eyebrow">Learning Hub</motion.span>
-            <motion.h1 variants={fadeUp} className="mt-3 text-3xl sm:text-5xl font-bold text-slate-900 leading-tight">
+            <motion.h1 variants={fadeUp} className="mt-3 text-3xl sm:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
               Quantum Computing
               <br />
               <span className="gradient-text-neon">From Zero to Hero.</span>
             </motion.h1>
-            <motion.p variants={fadeUp} className="mt-4 text-slate-600 text-base sm:text-lg max-w-2xl leading-relaxed">
+            <motion.p variants={fadeUp} className="mt-4 text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
               Everything you need to go from &ldquo;What is a qubit?&rdquo; to developing quantum algorithms with Qiskit. Hand-picked resources from IBM Quantum and the global Qiskit open-source community.
             </motion.p>
           </motion.div>
@@ -200,10 +208,10 @@ export default function LearnPage() {
         <div className="max-w-7xl mx-auto">
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }} variants={stagger}>
             <motion.span variants={fadeUp} className="section-eyebrow">Resource Library</motion.span>
-            <motion.h2 variants={fadeUp} className="mt-3 text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
-              IBM & Qiskit Resources
+            <motion.h2 variants={fadeUp} className="mt-3 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3">
+              IBM &amp; Qiskit Resources
             </motion.h2>
-            <motion.p variants={fadeUp} className="text-slate-600 text-sm mb-10 max-w-xl">
+            <motion.p variants={fadeUp} className="text-slate-600 dark:text-slate-400 text-sm mb-10 max-w-xl">
               From interactive sandboxes and official documentation to structured courses and application modules — explore by your level and interest.
             </motion.p>
 
@@ -222,8 +230,8 @@ export default function LearnPage() {
                     >
                       {cat.label}
                     </h3>
-                    <div className="h-px flex-1 bg-pink-200/60" />
-                    <span className="text-xs text-slate-500 font-mono font-medium">{cat.eyebrow}</span>
+                    <div className="h-px flex-1 bg-pink-200/60 dark:bg-pink-900/40" />
+                    <span className="text-xs text-slate-500 dark:text-slate-400 font-mono font-medium">{cat.eyebrow}</span>
                   </motion.div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -234,14 +242,14 @@ export default function LearnPage() {
                         href={r.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="glass-card bg-white/90 border border-pink-200/80 group p-5 flex flex-col gap-3 cursor-pointer shadow-xs hover:shadow-md hover:border-pink-300 transition-all"
+                        className="glass-card bg-white/90 dark:bg-slate-900/80 border border-pink-200/80 dark:border-pink-900/40 group p-5 flex flex-col gap-3 cursor-pointer shadow-xs hover:shadow-md hover:border-pink-300 dark:hover:border-pink-700 transition-all"
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div
                             className="p-2.5 rounded-xl flex-shrink-0"
                             style={{
-                              background: `${cat.color}14`,
-                              border: `1px solid ${cat.color}30`,
+                              background: `${cat.color}18`,
+                              border: `1px solid ${cat.color}35`,
                             }}
                           >
                             <r.icon size={16} style={{ color: cat.color }} />
@@ -252,10 +260,10 @@ export default function LearnPage() {
                         </div>
 
                         <div>
-                          <h4 className="font-semibold text-slate-900 text-sm leading-snug group-hover:text-pink-600 transition-colors">
+                          <h4 className="font-semibold text-slate-900 dark:text-white text-sm leading-snug group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
                             {r.title}
                           </h4>
-                          <p className="text-xs text-slate-600 mt-2 leading-relaxed line-clamp-3">
+                          <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed line-clamp-3">
                             {r.desc}
                           </p>
                         </div>
@@ -284,18 +292,17 @@ export default function LearnPage() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="glass-card bg-white/90 border border-pink-200/80 p-10 text-center shadow-lg shadow-pink-100/40"
-            style={{ background: 'radial-gradient(ellipse at top, rgba(253, 242, 248, 0.9), rgba(255, 255, 255, 0.95))' }}
+            className="glass-card bg-white/90 dark:bg-slate-900/90 border border-pink-200/80 dark:border-pink-900/50 p-10 text-center shadow-lg shadow-pink-100/40 dark:shadow-pink-950/40"
           >
             <div className="text-4xl mb-4">⚛️</div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-3">Ready to Build?</h3>
-            <p className="text-slate-600 text-sm mb-6 max-w-sm mx-auto">
-              Explore the official tracks, get your team together, and prepare for the 24-hour hackathon.
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">Ready to Build?</h3>
+            <p className="text-slate-600 dark:text-slate-300 text-sm mb-6 max-w-sm mx-auto">
+              Explore the official tracks, get your team together, and prepare for the Quantum Hackathon.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
               <Link
                 href="/hackathon"
-                className="btn-glow flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold text-white"
+                className="btn-glow flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold text-white shadow-md shadow-pink-200 dark:shadow-pink-950"
               >
                 <span>View Hackathon Tracks</span>
                 <ArrowRight size={14} />
@@ -304,7 +311,7 @@ export default function LearnPage() {
                 href="https://learning.quantum.ibm.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-glass flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold text-slate-700"
+                className="btn-glass flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-semibold transition-all"
               >
                 IBM Quantum Learning <ExternalLink size={13} />
               </a>

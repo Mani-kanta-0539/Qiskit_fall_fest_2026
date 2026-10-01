@@ -49,24 +49,24 @@ export default function CountdownTimer() {
   ]
 
   return (
-    <div className="flex items-center gap-2 sm:gap-2.5">
+    <div className="flex items-center justify-center gap-2 sm:gap-2.5">
       {units.map(({ label, value }, i) => (
         <div key={label} className="flex items-center gap-2 sm:gap-2.5">
           <div className="flex flex-col items-center">
-            <div className="glass-card bg-white/90 border-pink-200/80 px-2.5 py-1.5 sm:px-3.5 sm:py-2 min-w-[48px] sm:min-w-[60px] text-center shadow-sm rounded-xl">
+            <div className="glass-card bg-white/90 dark:bg-slate-900/90 border-pink-200/80 dark:border-pink-800/60 px-2.5 py-1.5 sm:px-3.5 sm:py-2 min-w-[48px] sm:min-w-[60px] text-center shadow-sm rounded-xl">
               <div
-                className="font-mono text-lg sm:text-2xl font-bold text-slate-900 tabular-nums"
-                style={{ textShadow: '0 0 12px rgba(244,114,182,0.2)' }}
+                className="font-mono text-lg sm:text-2xl font-bold text-slate-900 dark:text-white tabular-nums"
+                style={{ textShadow: '0 0 12px rgba(244,114,182,0.3)' }}
               >
                 {pad(value)}
               </div>
             </div>
-            <span className="font-mono text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-wider mt-1 font-medium">
+            <span className="font-mono text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-1 font-medium">
               {label}
             </span>
           </div>
           {i < units.length - 1 && (
-            <span className="font-mono text-base sm:text-xl text-[#db2777] font-bold mb-4 select-none">:</span>
+            <span className="font-mono text-base sm:text-xl text-[#db2777] dark:text-pink-400 font-bold mb-4 select-none">:</span>
           )}
         </div>
       ))}

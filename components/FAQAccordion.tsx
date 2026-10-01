@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { Plus, Minus } from 'lucide-react'
@@ -9,7 +9,6 @@ interface FAQAccordionProps {
 }
 
 export default function FAQAccordion({ items }: FAQAccordionProps) {
-  // All questions start closed by default on initial page load
   const [openIndices, setOpenIndices] = useState<number[]>([])
 
   const toggle = (index: number) => {
@@ -29,8 +28,8 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
             key={i}
             className={`glass-card rounded-2xl overflow-hidden transition-all duration-200 ${
               isOpen
-                ? '!border-pink-400 bg-white shadow-md shadow-pink-200/40 ring-1 ring-pink-300/60'
-                : 'bg-white/95 border border-pink-200/80 hover:border-pink-300'
+                ? '!border-pink-500 bg-white dark:bg-slate-900/95 shadow-md shadow-pink-200/40 dark:shadow-pink-950/40 ring-1 ring-pink-400/50'
+                : 'bg-white/95 dark:bg-slate-900/80 border border-pink-200/80 dark:border-pink-900/40 hover:border-pink-300 dark:hover:border-pink-700/60'
             }`}
           >
             <button
@@ -41,7 +40,7 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
             >
               <span
                 className={`font-semibold text-sm sm:text-base pr-2 pointer-events-none transition-colors duration-150 ${
-                  isOpen ? 'text-pink-600' : 'text-slate-800'
+                  isOpen ? 'text-pink-600 dark:text-pink-400' : 'text-slate-800 dark:text-slate-100'
                 }`}
               >
                 {item.question}
@@ -50,7 +49,7 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
                 className={`flex-shrink-0 rounded-full p-2 pointer-events-none transition-all duration-200 ${
                   isOpen
                     ? 'bg-pink-600 text-white scale-105 shadow-sm'
-                    : 'bg-pink-100/90 text-pink-600'
+                    : 'bg-pink-100/90 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400'
                 }`}
               >
                 {isOpen ? (
@@ -62,8 +61,8 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
             </button>
 
             {isOpen && (
-              <div className="px-6 pb-5 pt-3.5 border-t border-pink-100/90 bg-pink-50/25">
-                <p className="text-sm sm:text-[15px] text-slate-700 leading-relaxed font-normal">
+              <div className="px-6 pb-5 pt-3.5 border-t border-pink-100/90 dark:border-pink-900/50 bg-pink-50/30 dark:bg-pink-950/20">
+                <p className="text-sm sm:text-[15px] text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
                   {item.answer}
                 </p>
               </div>
@@ -74,4 +73,3 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
     </div>
   )
 }
-

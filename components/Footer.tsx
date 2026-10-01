@@ -6,7 +6,6 @@ import { Mail, ExternalLink, MessageSquare } from 'lucide-react'
 import { eventConfig } from '@/data/eventData'
 import { useContactModal } from '@/context/ContactModalContext'
 
-// Authentic Brand SVG Icons
 function DiscordIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -47,20 +46,19 @@ const socialLinks = [
 ]
 
 const footerLinks = [
-  { label: 'About',         href: '/#about' },
-  { label: 'Schedule',      href: '/#schedule' },
+  { label: 'Home',          href: '/' },
+  { label: 'About',         href: '/about' },
   { label: 'Hackathon',     href: '/hackathon' },
+  { label: 'Schedule',      href: '/schedule' },
   { label: 'Learn',         href: '/learn' },
-  { label: 'Claim Badge',   href: '/claim' },
-  { label: 'Announcements', href: '/announcements' },
-  { label: 'FAQs',          href: '/#faq' },
+  { label: 'FAQs',          href: '/about#faq' },
   { label: 'Venue',         href: '/#venue' },
 ]
 
 export default function Footer() {
   const { openContactModal } = useContactModal()
   return (
-    <footer className="relative border-t border-pink-200/80 bg-white/90 backdrop-blur-xl mt-8 shadow-sm">
+    <footer className="relative border-t border-pink-200/80 dark:border-pink-900/50 bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl mt-8 shadow-sm">
       {/* Top pink glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#ec4899]/50 to-transparent" />
 
@@ -71,40 +69,40 @@ export default function Footer() {
           <div className="flex flex-col gap-5">
             <Link href="/" className="flex items-center gap-3 w-fit">
               <div className="relative w-8 h-8">
-                <Image src="/assets/logos/qiskit_black.svg" alt="Qiskit" fill className="object-contain" />
+                <Image src="/assets/logos/qiskit_black.svg" alt="Qiskit" fill className="object-contain dark:invert" />
               </div>
               <div>
-                <span className="block font-bold text-sm text-slate-900">Qiskit Fall Fest</span>
+                <span className="block font-bold text-sm text-slate-900 dark:text-white">Qiskit Fall Fest</span>
                 <span className="block font-mono text-[10px] text-[#db2777] font-semibold tracking-[.2em]">2026</span>
               </div>
             </Link>
-            <p className="text-xs text-slate-600 leading-relaxed max-w-[280px]">
-              An official IBM Quantum extension event hosted at Andhra University — free quantum computing workshops, a 24-hour hackathon, and hands-on access to real quantum hardware.
+            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed max-w-[280px]">
+              An official IBM Quantum extension event hosted at Andhra University — free quantum computing workshops, an intensive multi-track quantum hackathon, and hands-on access to real quantum hardware.
             </p>
             {/* IBM badge + AU badge */}
             <div className="flex items-center gap-4 pt-1">
-              <div className="relative w-28 h-7 opacity-90 hover:opacity-100 transition-opacity">
+              <div className="relative w-28 h-7 opacity-90 hover:opacity-100 transition-opacity dark:brightness-0 dark:invert">
                 <Image src="/assets/ibm/IBM_Quantum_logotype_pos_RGB.png" alt="IBM Quantum" fill className="object-contain object-left" />
               </div>
-              <div className="h-5 w-px bg-pink-200" />
+              <div className="h-5 w-px bg-pink-200 dark:bg-pink-900/60" />
               <div className="flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-opacity">
                 <div className="relative w-6 h-6 rounded-full overflow-hidden shrink-0">
                   <Image src="/assets/logos/andhra-university.jpeg" alt="Andhra University" fill className="object-cover" />
                 </div>
-                <span className="text-[11px] font-semibold text-slate-700 leading-tight">Andhra Univ.</span>
+                <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 leading-tight">Andhra Univ.</span>
               </div>
             </div>
           </div>
 
           {/* Links */}
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-5">Navigation</h4>
+            <h4 className="text-xs font-mono uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mb-5">Navigation</h4>
             <div className="grid grid-cols-2 gap-x-6 gap-y-3">
               {footerLinks.map(link => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-sm text-slate-600 hover:text-pink-600 transition-colors flex items-center gap-1.5 font-medium"
+                  className="text-sm text-slate-600 dark:text-slate-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors flex items-center gap-1.5 font-medium"
                 >
                   {link.label}
                 </Link>
@@ -112,7 +110,7 @@ export default function Footer() {
               <button
                 type="button"
                 onClick={() => openContactModal('general')}
-                className="text-sm text-pink-600 hover:text-pink-700 transition-colors flex items-center gap-1.5 font-semibold text-left cursor-pointer"
+                className="text-sm text-pink-600 dark:text-pink-400 hover:text-pink-700 dark:hover:text-pink-300 transition-colors flex items-center gap-1.5 font-semibold text-left cursor-pointer"
               >
                 Contact Us
               </button>
@@ -121,7 +119,7 @@ export default function Footer() {
 
           {/* Community */}
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold mb-5">Community</h4>
+            <h4 className="text-xs font-mono uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold mb-5">Community</h4>
             <div className="flex flex-wrap gap-2.5 mb-6">
               {socialLinks.map(({ icon: Icon, label, href, brandColor }) => (
                 href ? (
@@ -132,7 +130,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     aria-label={label}
                     title={label}
-                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl border border-pink-200/80 bg-pink-50/50 text-slate-600 transition-all duration-200 group shadow-xs ${brandColor}`}
+                    className={`min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl border border-pink-200/80 dark:border-pink-900/50 bg-pink-50/50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 transition-all duration-200 group shadow-xs ${brandColor}`}
                   >
                     <Icon className="w-5 h-5 transition-transform group-hover:scale-110" />
                   </a>
@@ -143,14 +141,14 @@ export default function Footer() {
               <button
                 type="button"
                 onClick={() => openContactModal('general')}
-                className="flex items-center gap-2 text-sm text-slate-700 hover:text-pink-600 transition-colors font-medium text-left cursor-pointer"
+                className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors font-medium text-left cursor-pointer"
               >
-                <MessageSquare size={14} className="text-pink-600 shrink-0" />
+                <MessageSquare size={14} className="text-pink-600 dark:text-pink-400 shrink-0" />
                 <span>Get in Touch / Drop a Message</span>
               </button>
               <a
                 href={`mailto:${eventConfig.contactEmail}`}
-                className="flex items-center gap-2 text-xs text-slate-500 hover:text-pink-600 transition-colors font-mono"
+                className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 hover:text-pink-600 dark:hover:text-pink-400 transition-colors font-mono"
               >
                 <Mail size={12} className="shrink-0" />
                 {eventConfig.contactEmail}
@@ -160,7 +158,7 @@ export default function Footer() {
               href={eventConfig.registration}
               data-luma-action="checkout"
               data-luma-event-id={eventConfig.lumaEventId}
-              className="luma-checkout--button mt-4 btn-glow flex items-center gap-2 w-fit px-5 py-2.5 rounded-full text-sm font-semibold text-white shadow-md shadow-pink-200 cursor-pointer"
+              className="luma-checkout--button mt-4 btn-glow flex items-center gap-2 w-fit px-5 py-2.5 rounded-full text-sm font-semibold text-white shadow-md shadow-pink-200 dark:shadow-pink-950 cursor-pointer"
             >
               Register Free <ExternalLink size={12} />
             </a>
@@ -170,4 +168,3 @@ export default function Footer() {
     </footer>
   )
 }
-
