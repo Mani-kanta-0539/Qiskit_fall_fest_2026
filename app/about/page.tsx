@@ -4,20 +4,18 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowRight, Award, BookOpen, Shield, ExternalLink } from 'lucide-react'
+import { ArrowRight, Award, BookOpen, ExternalLink } from 'lucide-react'
 import { useContactModal } from '@/context/ContactModalContext'
 import FAQAccordion from '@/components/FAQAccordion'
 import SpeakerCard from '@/components/SpeakerCard'
 import Timeline from '@/components/Timeline'
 import {
-  eventConfig, speakersData, faqData, sponsorsData,
-  codeOfConduct, timelineEvents
+  eventConfig, speakersData, patronsData, faqData, sponsorsData, partnersData,
+  timelineEvents
 } from '@/data/eventData'
 
 export default function AboutPage() {
   const { openContactModal } = useContactModal()
-
-  const patronSponsors = sponsorsData.filter(s => s.tier === 'patron' && s.name !== 'More Coming Soon')
 
   return (
     <div className="relative overflow-x-hidden w-full bg-white dark:bg-[#09090f] transition-colors duration-250">
@@ -134,91 +132,114 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CODE OF CONDUCT */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-pink-50/60 dark:bg-slate-950/60">
-        <div className="max-w-6xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-            <p className="section-eyebrow mb-3">Community Standards</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white flex items-center justify-center gap-3">
-              <Shield size={32} className="text-pink-500" /> Code of Conduct
-            </h2>
-            <p className="mt-3 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              Modelled on the official Qiskit Fall Fest Discord guidelines. By registering, you agree to uphold these standards.
-            </p>
-          </motion.div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            {codeOfConduct.map((item, i) => (
-              <motion.div
-                key={item.num}
-                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
-                className="glass-card bg-white/90 dark:bg-slate-900/80 border border-pink-200/80 dark:border-pink-900/50 p-5 flex gap-4 items-start"
-              >
-                <span className="text-2xl font-black text-pink-300/70 dark:text-pink-500/40 font-mono flex-shrink-0 leading-none mt-0.5">{item.num}</span>
-                <div>
-                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">{item.title}</h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">{item.body}</p>
-                </div>
-              </motion.div>
+      {/* SPEAKERS */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
+            <p className="section-eyebrow mb-3">Inspiring Minds</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">Speakers, Mentors &amp; Jury</h2>
+          </motion.div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {speakersData.map((speaker) => (
+              <SpeakerCard key={speaker.id} speaker={speaker} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* SPEAKERS */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-8">
-            <p className="section-eyebrow mb-3">Inspiring Minds</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">Speakers, Mentors &amp; Bloq Quantum Jury</h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-card bg-white/90 dark:bg-slate-900/80 border-2 border-pink-300/80 dark:border-pink-800/80 p-8 rounded-3xl text-center max-w-2xl mx-auto shadow-xl"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 dark:bg-pink-950 text-pink-700 dark:text-pink-300 font-mono text-xs font-bold mb-4">
-              <span>|Ψ⟩ = 1/√2 (|Speakers Announced⟩ + |Unannounced⟩)</span>
-            </div>
-            <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-3">
-              Line-Up Entangled in Superposition
-            </h3>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-              Our line-up of IBM Quantum Ambassadors, workshop leads, and industry judges from <strong>Bloq Quantum</strong> is currently in superposition. The full roster will be revealed as we approach opening ceremonies!
-            </p>
-            <div className="flex justify-center gap-4 flex-wrap text-xs text-slate-500 dark:text-slate-400 pt-4 border-t border-pink-100 dark:border-pink-900/40">
-              <span className="font-semibold text-pink-600 dark:text-pink-400">Evaluation: Bloq Quantum Jury</span>
-              <span>•</span>
-              <span className="font-semibold text-pink-600 dark:text-pink-400">Platform: IBM Quantum</span>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* SPONSORS */}
+      {/* PATRONS */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-pink-50/60 dark:bg-slate-950/60">
         <div className="max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-            <p className="section-eyebrow mb-3">Powered By</p>
-            <h2 className="text-3xl font-black text-slate-900 dark:text-white">Patrons &amp; Sponsors</h2>
+            <p className="section-eyebrow mb-3">Leadership &amp; Visionaries</p>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white">Patrons</h2>
           </motion.div>
-
-          <div className="flex flex-wrap justify-center gap-6">
-            {patronSponsors.map((s, i) => (
-              <motion.a
-                key={s.name} href={s.url ?? '#'} target="_blank" rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="glass-card bg-white/90 dark:bg-slate-900/80 border border-pink-200/80 dark:border-pink-900/50 px-8 py-5 flex items-center justify-center min-w-[200px] hover:shadow-lg transition-all"
-              >
-                {s.logo ? (
-                  <Image src={s.logo} alt={s.name} width={140} height={50} className="object-contain max-h-12 dark:brightness-0 dark:invert" />
-                ) : (
-                  <span className="text-lg font-bold text-slate-700 dark:text-slate-200">{s.name}</span>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {patronsData.map((patron) => (
+              <div key={patron.id} className="glass-card bg-white/90 dark:bg-slate-900/80 border border-pink-200/80 dark:border-pink-900/50 p-6 rounded-2xl flex flex-col items-center text-center shadow-sm hover:shadow-md transition-all">
+                <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-white dark:border-slate-800 shadow-md bg-white dark:bg-slate-800">
+                  {patron.avatar ? (
+                    <Image src={patron.avatar} alt={patron.name} fill className="object-cover object-top" />
+                  ) : (
+                    <div className="w-full h-full bg-pink-100 flex items-center justify-center font-bold text-pink-600">AU</div>
+                  )}
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base leading-snug">{patron.name}</h3>
+                <p className="text-xs font-semibold text-pink-600 dark:text-pink-400 mt-1">{patron.role}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 flex-1">{patron.affiliation}</p>
+                {patron.profileUrl && (
+                  <a
+                    href={patron.profileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-pink-700 dark:text-pink-300 bg-pink-50 dark:bg-pink-950/60 border border-pink-200 dark:border-pink-800 hover:bg-pink-100 dark:hover:bg-pink-900 transition-all"
+                  >
+                    <ExternalLink size={13} />
+                    <span>View Profile</span>
+                  </a>
                 )}
-              </motion.a>
+              </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SPONSORS & PARTNERS */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto space-y-16">
+          {/* Sponsors */}
+          <div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-8">
+              <p className="section-eyebrow mb-2">Generous Support</p>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">Sponsors</h2>
+            </motion.div>
+            <div className="flex flex-wrap justify-center gap-6">
+              {sponsorsData.map((s) => (
+                <div
+                  key={s.name}
+                  className="glass-card bg-white/90 dark:bg-slate-900/80 border border-pink-200/80 dark:border-pink-900/50 px-8 py-6 rounded-2xl flex flex-col items-center justify-center min-w-[220px] shadow-sm hover:shadow-md transition-all"
+                >
+                  {s.logo ? (
+                    <div className="relative w-44 h-20">
+                      <Image src={s.logo} alt={s.name} fill className="object-contain" />
+                    </div>
+                  ) : (
+                    <span className="text-lg font-bold text-slate-700 dark:text-slate-200">{s.name}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Partners */}
+          <div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-8">
+              <p className="section-eyebrow mb-2">Collaboration &amp; Platform</p>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">Event Partners</h2>
+            </motion.div>
+            <div className="flex flex-wrap justify-center gap-8">
+              {partnersData.map((p) => (
+                <a
+                  key={p.name}
+                  href={p.url ?? '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="glass-card bg-white/90 dark:bg-slate-900/80 border border-pink-200/80 dark:border-pink-900/50 px-8 py-6 rounded-2xl flex flex-col items-center justify-center min-w-[220px] shadow-sm hover:shadow-md transition-all group"
+                >
+                  {p.logo ? (
+                    <div className="relative w-44 h-20 mb-2">
+                      <Image src={p.logo} alt={p.name} fill className="object-contain group-hover:scale-105 transition-transform" />
+                    </div>
+                  ) : (
+                    <span className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-2">{p.name}</span>
+                  )}
+                  <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 flex items-center gap-1 group-hover:text-pink-600 transition-colors">
+                    {p.name} <ExternalLink size={12} />
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>

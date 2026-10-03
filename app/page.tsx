@@ -155,9 +155,9 @@ export default function HomePage() {
             >
               <div className="text-4xl mb-3">⚡</div>
               <p className="text-xs font-mono font-bold text-pink-600 dark:text-pink-400 mb-1 tracking-widest uppercase">Day 2 · Oct 6</p>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Mentorship &amp; Submission</h3>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Online Sessions &amp; Shortlist</h3>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4 flex-1">
-                Virtual office hours &amp; architecture guidance. Hard submission deadline at <strong>6:00 PM IST sharp</strong> (4–8 slide deck, GitHub repo &amp; video demo).
+                2 Online Sessions by <strong>IBM Quantum</strong> &amp; <strong>Bloq Quantum</strong> (topics announced soon). Shortlisted teams results announced at <strong>9:00 PM IST</strong>.
               </p>
               <div className="flex flex-col gap-2">
                 <a
@@ -168,8 +168,8 @@ export default function HomePage() {
                 >
                   Register for Hackathon <ExternalLink size={12} />
                 </a>
-                <Link href="/hackathon" className="inline-flex items-center justify-center gap-1.5 text-sm font-semibold text-pink-600 dark:text-pink-400 hover:gap-3 transition-all">
-                  Problem Statements <ArrowRight size={14} />
+                <Link href="/schedule" className="inline-flex items-center justify-center gap-1.5 text-sm font-semibold text-pink-600 dark:text-pink-400 hover:gap-3 transition-all">
+                  View Full Schedule <ArrowRight size={14} />
                 </Link>
               </div>
             </motion.div>
@@ -180,9 +180,9 @@ export default function HomePage() {
             >
               <div className="text-4xl mb-3">🏆</div>
               <p className="text-xs font-mono font-bold text-pink-600 dark:text-pink-400 mb-1 tracking-widest uppercase">Day 3 · Oct 7</p>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Grand Finale &amp; Jury Pitch</h3>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Jury Pitching &amp; Awards</h3>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4 flex-1">
-                Shortlisted teams pitch live before the <strong>Bloq Quantum jury</strong>. Top teams win IBM Digital Certificates, exclusive swag kits, and cash prizes.
+                <strong>09:00 AM – 12:00 PM</strong>: Shortlisted Teams Pitching &amp; Live Demo before the Bloq Quantum Jury, followed by Awards Ceremony &amp; Certificates.
               </p>
               <Link href="/about" className="inline-flex items-center gap-1.5 text-sm font-semibold text-pink-600 dark:text-pink-400 hover:gap-3 transition-all">
                 About Event &amp; Perks <ArrowRight size={14} />

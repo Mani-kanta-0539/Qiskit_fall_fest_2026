@@ -22,10 +22,21 @@ export interface Speaker {
   role: string;
   affiliation: string;
   category: 'keynote' | 'mentor' | 'judge';
+  sessionType?: 'offline' | 'online';
   topics: string[];
   avatar?: string;
   linkedIn?: string;
   github?: string;
+  profileUrl?: string;
+}
+
+export interface Patron {
+  id: string;
+  name: string;
+  role: string;
+  affiliation: string;
+  avatar?: string;
+  profileUrl?: string;
 }
 
 export interface TrackSubtrack {
@@ -99,8 +110,8 @@ export const eventConfig = {
   badge: 'Official IBM Qiskit Fall Fest Extension • 2026 Edition',
   startDate: new Date('2026-10-05T09:00:00+05:30'),
   endDate: new Date('2026-10-07T18:00:00+05:30'),
-  scheduleAnnounced: false,
-  speakersAnnounced: false,
+  scheduleAnnounced: true,
+  speakersAnnounced: true,
   hackathonAnnounced: true,
   evaluationPartner: 'Bloq Quantum',
   hardDeadline: 'October 6, 2026 at 6:00 PM IST',
@@ -142,41 +153,100 @@ export const eventConfig = {
 };
 
 export const scheduleData: ScheduleItem[] = [
-  { id: 'd1-01', day: 1, time: '09:00 – 09:30', title: 'Registration & Welcome Kit', type: 'ceremony' },
-  { id: 'd1-02', day: 1, time: '09:30 – 10:30', title: 'Opening Ceremony & IBM Quantum Partnership Address', speaker: 'IBM Quantum Ambassador', track: 'Keynote', type: 'keynote', streamUrl: 'https://youtube.com/live/placeholder' },
-  { id: 'd1-03', day: 1, time: '10:30 – 12:00', title: 'Introduction to Quantum Computing with Qiskit', speaker: 'Workshop Lead', track: 'Workshop', type: 'workshop' },
-  { id: 'd1-04', day: 1, time: '12:00 – 13:00', title: 'Lunch Break', type: 'break' },
-  { id: 'd1-05', day: 1, time: '13:00 – 14:30', title: 'Quantum Gates, Circuits & the Bloch Sphere', speaker: 'Faculty Mentor', track: 'Workshop', type: 'workshop' },
-  { id: 'd1-06', day: 1, time: '14:30 – 16:00', title: 'Hands-On Lab: Building Your First Quantum Circuit', speaker: 'Technical Team', track: 'Lab', type: 'workshop' },
-  { id: 'd1-07', day: 1, time: '16:00 – 17:30', title: 'Guest Keynote: The Future of Quantum Computing', speaker: 'Distinguished Guest', track: 'Keynote', type: 'keynote', streamUrl: 'https://youtube.com/live/placeholder' },
-  { id: 'd1-08', day: 1, time: '17:30 – 18:00', title: 'Q&A Panel & Day 1 Wrap-Up', type: 'panel' },
-  { id: 'd2-01', day: 2, time: '09:00 – 09:30', title: 'Hackathon Kickoff & Rules Briefing', type: 'ceremony' },
-  { id: 'd2-02', day: 2, time: '09:30 – 10:00', title: 'Track Presentations & Problem Statement Release', track: 'Hackathon', type: 'hackathon' },
-  { id: 'd2-03', day: 2, time: '10:00 – 12:00', title: 'Team Formation & Ideation Sprint', track: 'Hackathon', type: 'hackathon' },
-  { id: 'd2-04', day: 2, time: '12:00 – 13:00', title: 'Lunch Break', type: 'break' },
-  { id: 'd2-05', day: 2, time: '13:00 – 18:00', title: 'Hackathon Coding Sprint Begins', track: 'Hackathon', type: 'hackathon' },
-  { id: 'd2-06', day: 2, time: '15:00 – 17:00', title: 'Quantum ML Workshop: QML with Qiskit', speaker: 'QML Expert', track: 'Workshop', type: 'workshop' },
-  { id: 'd2-07', day: 2, time: '20:00 – 22:00', title: 'Mentor Office Hours — Open Floor', type: 'workshop' },
-  { id: 'd3-01', day: 3, time: '09:00 – 10:00', title: 'Final Submission Deadline & Project Freeze', track: 'Hackathon', type: 'hackathon' },
-  { id: 'd3-02', day: 3, time: '10:00 – 12:00', title: 'Project Demo Presentations (Judges Round)', track: 'Hackathon', type: 'hackathon' },
-  { id: 'd3-03', day: 3, time: '12:00 – 13:00', title: 'Lunch Break', type: 'break' },
-  { id: 'd3-04', day: 3, time: '13:00 – 14:00', title: 'Judging Deliberation (Closed Session)', type: 'ceremony' },
-  { id: 'd3-05', day: 3, time: '14:00 – 15:00', title: 'Closing Keynote: Quantum Careers & Pathways', speaker: 'Industry Leader', track: 'Keynote', type: 'keynote', streamUrl: 'https://youtube.com/live/placeholder' },
-  { id: 'd3-06', day: 3, time: '15:00 – 16:30', title: 'Awards Ceremony & Prize Distribution', type: 'ceremony', streamUrl: 'https://youtube.com/live/placeholder' },
-  { id: 'd3-07', day: 3, time: '16:30 – 17:00', title: 'Certificate Distribution & Closing Remarks', type: 'ceremony' },
+  // Day 1 (October 5, 2026) - In-Person Technical Workshops @ Dr. Y.V.S. Murthy Auditorium
+  { id: 'd1-01', day: 1, time: '09:00 AM – 09:15 AM', title: 'Participant Registration & Welcome Address', speaker: 'Organizing Committee', track: 'Seating & Registration', type: 'ceremony' },
+  { id: 'd1-02', day: 1, time: '09:15 AM – 09:25 AM', title: 'Formal Inauguration & Ceremonial Lighting of the Lamp', speaker: 'Dignitaries (Principal & HOD)', track: 'Inaugural Ceremony', type: 'ceremony' },
+  { id: 'd1-03', day: 1, time: '09:25 AM – 10:15 AM', title: 'Technical Session 1: Foundations of Quantum Information', speaker: 'Prof. Gottapu Sasibhushana Rao', track: 'Quantum Computing Made Easy! Classical bits – Qubits', type: 'keynote' },
+  { id: 'd1-04', day: 1, time: '10:15 AM – 10:20 AM', title: 'Short Break & Speaker Introduction', speaker: 'Host', track: 'Transition', type: 'break' },
+  { id: 'd1-05', day: 1, time: '10:20 AM – 12:30 PM', title: 'Technical Session 2: Quantum Algorithms & Quantum ML', speaker: 'Jnan Yalla', track: 'Basic Quantum Circuit Building, Teleportation, DJ, Grovers & SuperDense Coding', type: 'workshop' },
+  { id: 'd1-06', day: 1, time: '12:30 PM – 01:30 PM', title: 'Networking Lunch & Refreshments', speaker: 'Central Dining Area', track: 'Intermission', type: 'break' },
+  { id: 'd1-07', day: 1, time: '01:30 PM – 03:00 PM', title: 'Industry Session 3: Quantum Circuits, Entanglement & Teleportation', speaker: 'IBM Quantum Team', track: 'Quantum Gates, Bell States & Protocols', type: 'workshop' },
+  { id: 'd1-08', day: 1, time: '03:00 PM – 03:10 PM', title: 'High Tea & Technical Break', speaker: 'Host', track: 'Transition', type: 'break' },
+  { id: 'd1-09', day: 1, time: '03:10 PM – 04:30 PM', title: 'Industry Session 4: Combinatorial & Quantum Optimization', speaker: 'Bloq Quantum', track: 'QAOA, QUBO & Industrial Optimization', type: 'workshop' },
+  { id: 'd1-10', day: 1, time: '04:30 PM – 05:00 PM', title: 'Valedictory Remarks, Day 2 Overview & Hackathon Briefing', speaker: 'Student Leads', track: 'Closing Session & Hackathon Overview', type: 'ceremony' },
+
+  // Day 2 (October 6, 2026) - Online Sessions & Shortlisted Results
+  { id: 'd2-01', day: 2, time: 'Online Session 1', title: 'IBM Online Session', speaker: 'IBM Quantum Team', track: 'Topic: Announcements Coming Soon (TBD)', type: 'workshop' },
+  { id: 'd2-02', day: 2, time: 'Online Session 2', title: 'Bloq Quantum Online Session', speaker: 'Bloq Quantum Team', track: 'Topic: Announcements Coming Soon (TBD)', type: 'workshop' },
+  { id: 'd2-03', day: 2, time: '09:00 PM IST', title: 'Shortlisted Teams Results Announcement', speaker: 'Bloq Quantum Jury & Organizers', track: 'Shortlisted Results Announcement', type: 'ceremony' },
+
+  // Day 3 (October 7, 2026) - Pitching & Awards Ceremony
+  { id: 'd3-01', day: 3, time: '09:00 AM – 12:00 PM', title: 'Shortlisted Teams Pitching & Live Demo (Jury Round)', speaker: 'Finalist Teams & Bloq Quantum Jury', track: 'Live Jury Pitching & Demo Defense', type: 'hackathon' },
+  { id: 'd3-02', day: 3, time: '12:00 PM Onwards', title: 'Awards Ceremony & Certificate Distribution', speaker: 'AU & IBM Organizing Committee', track: 'Awards & Prize Announcements', type: 'ceremony' },
 ];
 
 export const speakersData: Speaker[] = [
-  { id: 's1', name: 'Dr. Quantum Expert', role: 'IBM Quantum Ambassador', category: 'keynote', affiliation: 'IBM Quantum', topics: ['Quantum Computing', 'Qiskit', 'Quantum Hardware'], linkedIn: '#' },
-  { id: 's2', name: 'Prof. Entanglement', role: 'Associate Professor', category: 'keynote', affiliation: 'IIT / IISc', topics: ['Quantum Algorithms', 'Quantum Information'], linkedIn: '#' },
-  { id: 's3', name: 'Dr. Superposition', role: 'Research Scientist', category: 'keynote', affiliation: 'TIFR / ISRO', topics: ['Quantum Sensing', 'Future of Quantum Tech'], linkedIn: '#' },
-  { id: 'm1', name: 'Ananya Sharma', role: 'Qiskit Developer', category: 'mentor', affiliation: 'IBM Quantum Network', topics: ['Qiskit Runtime', 'VQE', 'QAOA'], linkedIn: '#', github: '#' },
-  { id: 'm2', name: 'Rahul Nair', role: 'PhD Researcher', category: 'mentor', affiliation: 'University Quantum Lab', topics: ['Quantum Error Correction', 'QECC'], linkedIn: '#', github: '#' },
-  { id: 'm3', name: 'Priya Menon', role: 'ML Engineer', category: 'mentor', affiliation: 'AI Research Lab', topics: ['Quantum Machine Learning', 'Qiskit ML'], linkedIn: '#' },
-  { id: 'm4', name: 'Arjun Kapoor', role: 'Software Engineer', category: 'mentor', affiliation: 'Quantum Startup', topics: ['Quantum Optimization', 'QUBO'], github: '#' },
-  { id: 'j1', name: 'Dr. Measurement', role: 'Senior Research Scientist', category: 'judge', affiliation: 'IBM Research', topics: ['Judging: Innovation & Impact'], linkedIn: '#' },
-  { id: 'j2', name: 'Prof. Coherence', role: 'Department Head', category: 'judge', affiliation: 'Host University', topics: ['Judging: Technical Complexity'], linkedIn: '#' },
-  { id: 'j3', name: 'Ms. Qubit', role: 'CTO', category: 'judge', affiliation: 'Quantum Ventures', topics: ['Judging: Practical Feasibility'], linkedIn: '#' },
+  {
+    id: 's1',
+    name: 'Prof. Gottapu Sasibhushana Rao',
+    role: 'Senior Professor, Dept. of ECE',
+    affiliation: 'Andhra University College of Engineering (AUCE)',
+    category: 'keynote',
+    sessionType: 'offline',
+    topics: ['Foundations of Quantum Information', 'Telecommunications', 'Signal Processing & Circuits'],
+    avatar: '/assets/people/gottapu-sasibhushana-rao.jpg',
+    profileUrl: 'https://vidwan.inflibnet.ac.in/profile/230830',
+  },
+  {
+    id: 's2',
+    name: 'Jnan Yalla',
+    role: 'Quantum Developer & Lead Instructor',
+    affiliation: 'Qiskit / Quantum Community',
+    category: 'keynote',
+    sessionType: 'offline',
+    topics: ['Quantum Algorithms', 'Qiskit Primitives & Circuits', 'Quantum Machine Learning'],
+    avatar: '/assets/people/jnan-yalla.png',
+    linkedIn: 'https://www.linkedin.com/in/jnan-yalla-9940b1314/',
+  },
+  {
+    id: 's3',
+    name: 'Archit Chadalawada',
+    role: 'IBM Quantum Ambassador & Engineer',
+    affiliation: 'IBM Quantum',
+    category: 'keynote',
+    sessionType: 'online',
+    topics: ['IBM Quantum Hardware', 'Qiskit Runtime Primitives', 'Circuit Optimization'],
+    avatar: '/assets/people/archit-chadalawada.jpeg',
+    linkedIn: 'https://www.linkedin.com/in/archit-chadalawada/',
+  },
+  {
+    id: 'm1',
+    name: 'Nikhil Londhe',
+    role: 'Co-Founder & Technical Lead',
+    affiliation: 'Bloq Quantum (Official Evaluation Partner)',
+    category: 'judge',
+    sessionType: 'online',
+    topics: ['QAOA & QUBO Optimization', 'Industrial Applications', 'Hackathon Evaluation'],
+    avatar: '/assets/people/nikhil-londhe.jpeg',
+    linkedIn: 'https://www.linkedin.com/in/nikhil-londhe-626b36198/',
+  },
+];
+
+export const patronsData: Patron[] = [
+  {
+    id: 'p1',
+    name: 'Saraswatula Atma Rama Sarma',
+    role: 'Deputy General Manager (Retired)',
+    affiliation: 'Visakhapatnam Steel Plant',
+    avatar: '/assets/people/saraswatula-atma-sarma.jpeg',
+    profileUrl: 'https://www.linkedin.com/in/atma-rama-sarma-saraswatula-6960a330b/',
+  },
+  {
+    id: 'p2',
+    name: 'Prof. P. V. Sridevi',
+    role: 'Head of Department (HoD), ECE',
+    affiliation: 'Department of Electronics & Communication Engineering, AUCE',
+    avatar: '/assets/people/pv-sridevi.jpeg',
+    profileUrl: 'https://vidwan.inflibnet.ac.in/profile/223408',
+  },
+  {
+    id: 'p3',
+    name: 'Prof. K. Venkata Subbaiah',
+    role: 'Principal',
+    affiliation: 'Andhra University College of Engineering (AUCE Autonomous)',
+    avatar: '/assets/people/venkata-subbaiah.jpeg',
+    profileUrl: 'https://vidwan.inflibnet.ac.in/profile/223460',
+  },
 ];
 
 // ─── Official Hackathon Tracks (8 Challenges) ─────────────────
@@ -496,6 +566,10 @@ export const faqData: FAQ[] = [
     answer: 'Projects are evaluated on technical rigor (effective and creative use of Qiskit circuits and primitives), originality of the solution, practical feasibility, and clarity of the demo pitch deck and GitHub code repository, in accordance with each track\'s specific criteria.',
   },
   {
+    question: 'Will food or lunch be provided at the venue?',
+    answer: 'Lunch will not be provided. Participants are requested to make their own arrangements for lunch. Canteens are available in the vicinity of the venue for participants to purchase food and refreshments.',
+  },
+  {
     question: 'Will attendees receive certificates?',
     answer: 'Yes. All participants who attend the core workshops and submit a valid hackathon project or lab notebook will receive an official digital Certificate of Participation. Winners will also receive merit certificates and IBM Qiskit gear.',
   },
@@ -504,11 +578,8 @@ export const faqData: FAQ[] = [
 // ─── Sponsors & Partners ─────────────────────────────────────
 
 export const sponsorsData: Sponsor[] = [
-  { name: 'IBM Quantum', logo: '/assets/ibm/IBM_Quantum_logotype_pos_RGB.png', tier: 'patron', url: 'https://www.ibm.com/quantum' },
-  { name: 'Andhra University', logo: '/assets/logos/andhra-university.jpeg', tier: 'patron', url: 'https://www.andhrauniversity.edu.in' },
-  { name: 'More Coming Soon', tier: 'patron' },
-  { name: 'AU Quantum Computing Students', tier: 'community' },
-  { name: 'Codeiam Club', tier: 'community' },
+  { name: 'Jupiter Honda', logo: '/assets/logos/jupiter-honda.png', tier: 'gold' },
+  { name: 'Cell Point', logo: '/assets/logos/cell-point.png', tier: 'gold' },
 ];
 
 // ─── Organizing Team ─────────────────────────────────────────
@@ -641,27 +712,6 @@ export const timelineEvents: TimelineEvent[] = [
   { id: 'tl8', date: new Date('2026-10-14'), label: 'IBM Certificates & Swag', sublabel: 'Oct 14, 2026', type: 'certificate' },
 ];
 
-// ─── Code of Conduct ──────────────────────────────────────────
-
-export interface CodeOfConductItem {
-  num: string;
-  title: string;
-  body: string;
-}
-
-export const codeOfConduct: CodeOfConductItem[] = [
-  { num: '01', title: 'Be Respectful', body: 'Treat every participant, mentor, organiser, and judge with dignity and respect. Personal attacks, trolling, or harassment of any kind are strictly prohibited.' },
-  { num: '02', title: 'Inclusive Language', body: 'Use welcoming, inclusive language. Be mindful of how your words affect others. Avoid derogatory terms related to gender, race, religion, ability, or sexual orientation.' },
-  { num: '03', title: 'Original Work Only', body: 'All hackathon submissions must be original work created during the event. Plagiarism or significant reuse of pre-existing projects without disclosure will result in disqualification.' },
-  { num: '04', title: 'Follow IBM Guidelines', body: 'Abide by IBM Quantum Community Guidelines and IBM\'s usage terms for quantum hardware access. Misuse of IBM Quantum credentials or resources will be reported to IBM.' },
-  { num: '05', title: 'Responsible AI Use', body: 'AI tools may assist development but must not replace core quantum programming effort. Clearly disclose all AI assistance in your project submission README.' },
-  { num: '06', title: 'Collaborate and Lift Others', body: 'Share knowledge, help teammates, and contribute to a culture of collective learning. The goal is to grow together as a community, not just to win.' },
-  { num: '07', title: 'No Disruptive Behaviour', body: 'Disruptive behaviour during keynotes, workshops, or judging sessions — including loud phone calls, interrupting presenters, or causing distractions — is not permitted.' },
-  { num: '08', title: 'Safety and Consent', body: 'Do not photograph, video, or share content of other participants without their explicit consent. Report unsafe situations to organisers immediately.' },
-  { num: '09', title: 'Fair Play', body: 'Do not access systems, networks, or datasets beyond what is explicitly provided. Ethical conduct with IBM Quantum hardware and simulator access is mandatory.' },
-  { num: '10', title: 'Consequences', body: 'Violations of this Code of Conduct may result in a warning, removal from the event, or a permanent ban from future QFF events. Severe violations will be escalated to relevant authorities.' },
-];
-
 // ─── Partners ─────────────────────────────────────────────────
 
 export interface Partner {
@@ -672,7 +722,7 @@ export interface Partner {
 }
 
 export const partnersData: Partner[] = [
-  { name: 'AU Quantum Computing Students Club', type: 'club' },
-  { name: 'Codeiam Club', type: 'club' },
-  { name: 'IEEE Student Branch — AU', type: 'club' },
+  { name: 'Andhra University', logo: '/assets/logos/andhra-university.jpeg', url: 'https://www.andhrauniversity.edu.in', type: 'institution' },
+  { name: 'IBM Quantum', logo: '/assets/ibm/IBM_Quantum_logotype_pos_RGB.png', url: 'https://www.ibm.com/quantum', type: 'community' },
+  { name: 'Bloq Quantum', logo: '/assets/logos/bloq-quantum.png', url: 'https://bloqquantum.com', type: 'community' },
 ];
